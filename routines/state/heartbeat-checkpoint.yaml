@@ -1,0 +1,37 @@
+schema_version: 1
+routine: heartbeat
+occurrence_key: null
+lease:
+  holder: null
+  token_hash: null
+  acquired_at: null
+  expires_at: null
+last_started_at: null
+last_completed_at: null
+last_completion_outcome: null
+action_hash: null
+outbound_hash: null
+retry:
+  attempt: 0
+  last_error_code: null
+  last_error_at: null
+backoff:
+  backoff_seconds: null
+  next_retry_at: null
+last_question:
+  hash: null
+  asked_at: null
+question_cooldown:
+  cooldown_until: null
+inbound_cursor:
+  connector_id: null
+  provider_key: null
+  semantics: provider_opaque_exclusive
+  value: null
+  advanced_at: null
+queued_proactive_notification:
+  content: null
+  reason: null
+  queued_at: null
+  occurrence_key_origin: null
+updated_at: null

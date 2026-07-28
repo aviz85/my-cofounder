@@ -1,0 +1,134 @@
+schema_version: 3
+
+installation:
+  status: uninstalled
+  enabled: false
+  installed_at: null
+  updated_at: null
+
+capability_probe:
+  status: not_run
+  checked_at: null
+  product_surface: null
+  schedule_management: null
+  existing_task_continuation: null
+  scheduler_and_task_id_readback: null
+  timezone_cadence_and_overlap: null
+  starter_read_write_access: null
+  checkpoint_read_write_access: null
+  connector_runtime_probe: null
+  team_run_archive_support: unknown
+  desktop_availability_acknowledged: false
+  missing_required_capabilities: []
+  enable_rule: "Both base schedules remain disabled until every required base capability is verified."
+
+schedules:
+  heartbeat:
+    status: uninstalled
+    enabled: false
+    automation_id: null
+    task_id: null
+    instruction_file: HEARTBEAT.md
+    cadence: every_4_hours
+    timezone: null
+    overlap_policy: skip
+    task_lifecycle: wake_or_continue_existing
+    create_task_per_run: prohibited
+    checkpoint_file: routines/state/heartbeat-checkpoint.yaml
+  dreaming:
+    status: uninstalled
+    enabled: false
+    automation_id: null
+    task_id: null
+    instruction_file: DREAMING.md
+    cadence: nightly
+    local_time: null
+    timezone: null
+    overlap_policy: skip
+    task_lifecycle: wake_or_continue_existing
+    create_task_per_run: prohibited
+    checkpoint_file: routines/state/dreaming-checkpoint.yaml
+
+state:
+  checkpoint_schema_version: 1
+  separate_checkpoint_per_routine: required
+  shared_mutable_checkpoint: prohibited
+  occurrence_keys:
+    heartbeat: "scheduled UTC hour in YYYY-MM-DDTHH:00Z form"
+    dreaming: "configured timezone, local service date, and scheduled local time"
+    preserve_across_retries: true
+  lease:
+    acquire_mode: compare_and_set_if_absent_or_expired
+    duration_seconds: 900
+    renew_before_seconds: 120
+    overlap_when_unexpired: skip
+  idempotency:
+    hash_algorithm: sha256
+    action_hash_scope: normalized_occurrence_and_action_intent
+    outbound_hash_scope: normalized_channel_provider_audience_and_payload
+    repeat_completed_action_hash: skip
+    repeat_outbound_hash: skip
+  retry_backoff:
+    strategy: exponential_with_jitter
+    initial_seconds: 60
+    multiplier: 2
+    maximum_seconds: 3600
+    maximum_attempts_per_occurrence: 5
+  question_cooldown:
+    default_seconds: 86400
+    same_question_hash_before_cooldown: skip
+  inbound_cursor:
+    contract_source: connectors/registry.yaml#/read_cursor_contract
+    advance_after_durable_persistence: true
+  proactive_send_gate:
+    applies_to: heartbeat_proactive_notification_only
+    never_gates: [goal_action_execution, action_register_update, metric_persistence, live_session_reply]
+    window_source: USER.md#/communication/proactive_window
+    default_source: USER.md#/communication_schema/proactive_window_default_rule
+    outside_window_behavior: queue_in_checkpoint_send_at_next_in_window_occurrence
+    checkpoint_field: routines/state/heartbeat-checkpoint.yaml#/queued_proactive_notification
+
+execution:
+  permission_profile: safe_internal_proactive
+  max_parallel_workers: 4
+  max_active_team_schedules: 3
+  external_actions: require_explicit_approval
+  standing_send_authorization_source: USER.md
+  primary_channel_source: USER.md
+  provider_mapping_source: USER.md
+  live_connector_availability_source: connectors/registry.yaml#/authority/live_availability_source
+  destructive_actions: require_explicit_approval
+  broaden_permissions: prohibited
+  silently_change_primary_goal: prohibited
+
+logging:
+  routine_log_file: routines/run-log.md
+  policy: bounded_chronological
+  maximum_entries: 500
+  maximum_bytes: 1048576
+  check_limits_before_append: true
+  overflow_action: compact_oldest_unprotected_entries
+  protected_entry_kinds:
+    - failure
+    - approval_or_permission_change
+    - external_send
+    - metric_change
+    - material_second_brain_operation
+  compaction_summary_required: true
+  unable_to_compact_action: stop_append_and_report_blocker
+  log_material_second_brain_operations: true
+  team_meeting_directory: second-brain/wiki/meetings
+  include_evidence_sources: true
+  secrets: prohibited
+
+team_meeting_defaults:
+  installation_status: uninstalled
+  enabled: false
+  charter_template: teams/TEAM_CHARTER_TEMPLATE.md
+  minutes_template: teams/MEETING_MINUTES_TEMPLATE.md
+  schedule_scope: one_native_scheduled_task_per_team
+  duplicate_policy: update_exact_team_match_or_stop
+  archive_completed_meeting_run_when_supported: required
+  archive_capability_source: capability_probe.team_run_archive_support
+  archive_unavailable_or_failed: archive_pending
+  archive_before_durable_minutes: prohibited

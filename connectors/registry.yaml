@@ -1,0 +1,127 @@
+schema_version: 2
+registry_status: uninstalled
+updated_at: null
+
+# A connector is requested only when it unlocks a concrete goal-linked action.
+# Never store credentials or tokens in this repository.
+authority:
+  user_channel_choice_source: USER.md#/communication
+  user_consent_source: USER.md#/communication/consent
+  standing_send_authorization_source: USER.md#/communication/standing_send_authorization
+  live_availability_source: connector_runtime_probe
+  live_availability_check_time: immediately_before_use
+  user_profile_is_availability_source: false
+
+read_cursor_contract:
+  value_type: provider_opaque
+  semantics: exclusive_after
+  scope: per_routine_per_connector
+  persistence:
+    heartbeat: routines/state/heartbeat-checkpoint.yaml#/inbound_cursor
+    dreaming: routines/state/dreaming-checkpoint.yaml#/inbound_cursor
+  null_cursor_rule: "No verified boundary exists. Perform only a bounded initial read and do not infer that all history was read."
+  advance_rule: "Advance only after the inbound evidence needed by the run is durably persisted."
+  failure_rule: "Keep the prior cursor when reading, processing, or persistence fails."
+  reset_rule: "A cursor reset requires an explicit recorded reason; never synthesize or compare provider cursor values."
+
+connectors:
+  - id: whatsapp
+    kind: channel_provider
+    channel: whatsapp
+    installation_status: uninstalled
+    purpose: customer communication, evidence, and follow-up
+    provider_mapping:
+      mode: direct
+      provider_key: whatsapp
+      runtime_connector_id: whatsapp
+    live_availability:
+      source: connector_runtime_probe
+      probe_target: whatsapp
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    inbound_read:
+      supported: true
+      cursor_semantics: provider_opaque_exclusive
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true
+
+  - id: email
+    kind: channel_abstraction
+    channel: email
+    installation_status: uninstalled
+    purpose: customer communication, evidence, and follow-up
+    provider_mapping:
+      mode: provider_specific
+      selection_source: USER.md#/communication/primary_provider
+      selected_provider: null
+      mappings:
+        gmail:
+          runtime_connector_id: gmail
+        outlook_email:
+          runtime_connector_id: outlook_email
+        other_email:
+          runtime_connector_id: null
+    live_availability:
+      source: selected_provider_runtime_probe
+      probe_target: null
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    inbound_read:
+      supported: true
+      cursor_semantics: provider_opaque_exclusive
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true
+
+  - id: calendar
+    kind: capability
+    installation_status: uninstalled
+    purpose: deadlines, commitments, and scheduling
+    live_availability:
+      source: connector_runtime_probe
+      probe_target: calendar
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true
+
+  - id: drive
+    kind: capability
+    installation_status: uninstalled
+    purpose: business documents and source evidence
+    live_availability:
+      source: connector_runtime_probe
+      probe_target: drive
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true
+
+  - id: analytics
+    kind: capability
+    installation_status: uninstalled
+    purpose: goal and funnel measurement
+    live_availability:
+      source: connector_runtime_probe
+      probe_target: analytics
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true
+
+  - id: payments_or_crm
+    kind: capability
+    installation_status: uninstalled
+    purpose: verified revenue, registrations, pipeline, or customer state
+    live_availability:
+      source: connector_runtime_probe
+      probe_target: payments_or_crm
+      freshness_seconds: 300
+      last_observed: null
+      observed_at: null
+    allowed_without_approval: read_only_when_connected
+    external_writes_require_approval: true

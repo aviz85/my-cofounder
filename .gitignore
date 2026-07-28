@@ -1,0 +1,12 @@
+# Root control docs use exact ALL-CAPS names: SOUL.md, USER.md, BUSINESS.md,
+# GOAL.md, HEARTBEAT.md, and DREAMING.md. They stay tracked outside assets/.
+
+# Keep forks lightweight: ignore every asset payload and unknown/generated format.
+/assets/**
+
+# Keep only the asset control plane tracked. Store ordinary source text outside
+# assets/; this prevents accidental commits of exports and generated payloads.
+!/assets/**/
+!/assets/**/.gitkeep
+!/assets/**/README.md
+!/assets/**/*.metadata.md
