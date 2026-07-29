@@ -69,7 +69,9 @@ The agent may prepare a full draft for approval. Approval to draft is not approv
 
 | File | Role |
 |---|---|
+| `VISION.md` | The thesis, AGI-moment catalog, and north-star metrics — for maintainers and teachers, not loaded at runtime |
 | `AGENTS.md` | Read order, responsibilities, and operating method (also holds the fast `onboarding_complete` cache flag) |
+| `OPEN-LOOPS.md` | The open-threads ledger — every thread set aside is logged here, loaded at every startup, closed only with evidence or an explicit instruction |
 | `ONBOARDING.md` | The merged, priority-ordered onboarding question sequence, active until the goal reaches `active` |
 | `FLOW.md` | The full onboarding-to-activation flowchart, plus an LLM-judgment check to run after any structural change |
 | `SOUL.md` | Character, values, voice, and the agent's configurable fields |
@@ -116,6 +118,14 @@ Any image, audio, video, PDF, archive, generated media, or other large file is s
 Every such asset must have an adjacent description file named `<full-filename>.metadata.md`, including an accessible summary, source, usage rights, date, topics, confidentiality level, review status, and a non-secret external backup locator.
 
 Asset files themselves are not pushed to Git by default, so the fork stays lightweight. Only folder structure, README files, `.gitkeep`, and metadata files are tracked in the repository; working documents and code live outside `assets/`. The full explanation and example are in `assets/README.md`.
+
+## Delegating an ongoing task
+
+When something needs to keep advancing continuously — not a one-off action — the Co-Founder doesn't carry it alone inside its main loop. It delegates it to a dedicated team member: its own conversation, its own schedule, one clear role. The starter's worked example: `teams/knowledge-completion-charter.md` — a team whose entire job is deepening the business/user picture over time, on its own daily cadence, without flooding you.
+
+What prevents that worker from working hard for nothing: its output must land in the same shared location the rest of the system already reads from — `second-brain/wiki/`, the action register, or the gap queue — never a private file only that team knows about. `teams/registry.md` enforces this explicitly: a worker's write scope must feed the one shared brain, never maintain a separate one. Without that rule, you could staff an enthusiastic worker who fills page after page — and the rest of the system would simply never know they exist.
+
+Here's what to expect in practice: a bounded, one-off task is just done inside the current conversation — nothing new gets opened. But the moment the agent recognizes a recurring pattern — the same kind of question or task coming back again — it's supposed to **proactively propose** forming a dedicated team: it states the cadence, the role split, and that it will run in its own separate conversation with its own schedule, not this one. When the work reaches its natural end (the charter's stop or sunset condition is met), the agent closes it out and archives that dedicated conversation rather than leaving it running without a purpose.
 
 ## Working principle
 

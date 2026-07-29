@@ -22,14 +22,15 @@ The starter ships semantically empty, uninstalled, and disabled. Provider mappin
 
 For each scheduled occurrence:
 
-1. Derive the deterministic occurrence key and load only that routine's checkpoint.
+1. Derive the deterministic occurrence key and load only that routine's checkpoint. If the derived key differs from the checkpoint's stored `occurrence_key`, reset `retry.attempt`, `retry.last_error_code`, `retry.last_error_at`, `backoff.backoff_seconds`, and `backoff.next_retry_at` to their initial values before proceeding.
 2. Acquire the lease only when absent or expired. Skip an occurrence covered by an unexpired lease.
-3. Preserve the same occurrence key across retries. Record start time before work.
-4. Use the action hash to avoid repeating a completed action and the outbound hash to avoid a duplicate send. Hashes are evidence, never authorization.
-5. On failure, preserve the inbound cursor, record retry state, and apply the configured bounded backoff.
-6. Before asking a question, compare its hash and cooldown. Do not repeat it during the cooldown.
-7. Advance the provider-opaque inbound cursor only after relevant evidence is durably persisted.
-8. Record completion, clear the lease, and append one compact run-log entry.
+3. While work is still active, renew the lease before elapsed time since acquisition exceeds `duration_seconds` minus `renew_before_seconds`: extend `expires_at` using the same lease token, without changing the occurrence key.
+4. Preserve the same occurrence key across retries. Record start time before work.
+5. Use the action hash to avoid repeating a completed action and the outbound hash to avoid a duplicate send. Hashes are evidence, never authorization.
+6. On failure, preserve the inbound cursor, record retry state, and apply the configured bounded backoff.
+7. Before asking a question, compare its hash and cooldown. Do not repeat it during the cooldown.
+8. Advance the provider-opaque inbound cursor only after relevant evidence is durably persisted.
+9. Record completion, clear the lease, and append one compact run-log entry.
 
 Never share a mutable checkpoint between HEARTBEAT and DREAMING. Never order, synthesize, or compare opaque provider cursors.
 

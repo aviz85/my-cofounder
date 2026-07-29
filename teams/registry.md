@@ -42,7 +42,7 @@ Create a team only when all of these are true:
 
 Measurable leverage is an observed benefit attributable to parallel team operation, such as reduced decision latency, hours saved, increased verified evidence per cycle, faster removal of the binding constraint, or improved outcome or leading-indicator movement. Do not use activity counts, attendance, number of meetings, or number of worker outputs as leverage. The charter must state the expected benefit, coordination-cost baseline, target, measurement window, owner, and source.
 
-Start with the smallest viable team: one manager and the minimum workers needed. Do not create placeholder roles, duplicate researchers, or a meeting without active work. Across the entire system, never exceed four concurrent workers. Before activation, count workers already running for every team and non-team workflow; queue, defer, or decline agenda work that would exceed the cap. A manager may add a role only after recording the concrete bottleneck it removes and the expected measurable leverage.
+Start with the smallest viable team: one manager and the minimum workers needed. Do not create placeholder roles, duplicate researchers, or a meeting without active work. Across the entire system, never exceed four concurrent workers. Before activation, count workers already running for every team and non-team workflow by live-probing the scheduler's actual active task state — the same live probe already used for the archive-capability check — never a routine's own checkpoint, which `routines/registry.yaml` prohibits sharing across routines; queue, defer, or decline agenda work that would exceed the cap. A manager may add a role only after recording the concrete bottleneck it removes and the expected measurable leverage.
 
 No more than three active team schedules may exist across the system. Before enabling a team schedule, enumerate active team schedules and refuse activation when it would create a fourth. A draft, disabled, or uninstalled team does not consume a schedule slot.
 
@@ -116,7 +116,7 @@ Before each team meeting decides:
 4. use relevant replies as evidence in the meeting;
 5. change conclusions and follow-ups when the reply changes current reality.
 
-If no channel is chosen, ask one onboarding question. If it is chosen but not connected, request only the connector required to read it. Do not make a channel-dependent decision; continue only agenda work that cannot be invalidated by missing replies and record the blocker.
+If no channel is chosen, ask one onboarding question. If it is chosen but not connected, check this team's most recent prior meeting record (via the meetings index in `second-brain/wiki/index.md`) for the same unresolved connector request before asking again, and request it only if that record shows no pending request or the connector's live status has changed since. Do not make a channel-dependent decision; continue only agenda work that cannot be invalidated by missing replies and record the blocker in this occurrence's minutes.
 
 Deliver meeting conclusions, decisions needed, and proactive updates through that same primary channel. External sends require explicit in-app approval immediately before sending unless the exact message type and audience are covered by precise standing authorization in `USER.md`.
 
@@ -162,6 +162,8 @@ Every worker brief must include:
 - success and guardrail metrics;
 - quality checks;
 - return format and escalation condition.
+
+Write scope must resolve into the shared canonical locations — `second-brain/wiki/`, the action register, or the gap queue — never a team-private file or location the rest of the system has no instruction to read. A team exists to feed the one shared brain the whole system reads, never to maintain a separate one; disjoint write scope means workers don't collide with each other, not that a team gets its own silo.
 
 The manager reviews every worker's output. Delegation never transfers the user's decision rights or grants broader channel permissions.
 

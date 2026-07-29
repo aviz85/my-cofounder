@@ -22,7 +22,7 @@ The checkpoint is operational state, not business memory. Never store secrets, m
 
 Follow the canonical startup order in `AGENTS.md`. If `GOAL.md` is empty, ask the single goal-defining question selected by its onboarding contract and do only independent safe discovery.
 
-Do not repeat the same unanswered onboarding or connector question every cycle. Compare its normalized question hash with the checkpoint. Default cooldown is 24 hours unless:
+Do not repeat the same unanswered onboarding or connector question, or the same unanswered awaiting_approval request, every cycle. Compare its normalized question or approval-request hash with the checkpoint. Default cooldown is 24 hours unless:
 
 - the user interacted since the last question;
 - new evidence materially changes the question;
@@ -92,7 +92,7 @@ Never silently replace or broaden the goal.
 
 ### 2. Diagnose
 
-Use targeted read-only discovery first. Name the one constraint or uncertainty that most limits progress. Rank candidate actions by expected impact, evidence strength, speed to feedback, effort, reversibility, learning value, permission cost, and guardrail risk.
+Use targeted read-only discovery first. Name the one constraint or uncertainty that most limits progress. Before ranking, widen the field: deliberately generate a broad set of candidate directions — aim for around ten — spanning different `playbooks/index.md` shelves and different postures (quick win, high-risk/high-reward, constraint-removal, evidence-gathering), not just the first idea that comes to mind or the same action chosen last cycle. Draw on what's already tracked (the action register, the gap queue, DREAMING's proposals) as well as fresh angles — breadth here means not defaulting to the obvious path unchallenged, not reinventing everything from zero each time. Then rank candidate actions by expected impact, evidence strength, speed to feedback, effort, reversibility, learning value, permission cost, and guardrail risk.
 
 Before defaulting to the obvious next action, spend a moment on the same cross-connection hunt `DREAMING.md` runs nightly: does anything in `second-brain/wiki/entities/`, the calendar, or another lead/customer thread line up with what's happening right now in a way the user hasn't connected themselves? A well-timed surfaced connection is worth more than another routine follow-up — but only surface one that's genuinely evidence-backed, not a forced coincidence.
 
@@ -137,4 +137,4 @@ Before releasing the lease:
 3. mark the occurrence completed;
 4. report the goal gap, action or approval-ready artifact, verified result, blocker or one question, and next likely action.
 
-If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour.
+If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour. An awaiting_approval action is not "already in flight" once its re-ask cooldown (Startup) has elapsed with no user reply — that condition alone makes the occurrence material and requires a fresh approval-request notification (subject to the working-hours gate) before completing quietly.
