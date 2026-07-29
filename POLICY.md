@@ -46,7 +46,7 @@ An approval request MUST identify:
 - the recipient, audience, account, or system;
 - the cost, cap, or contractual effect, if any;
 - what will be deleted or made public, if relevant;
-- the main risks and whether the action is reversible.
+- the main risks and whether the action is reversible. Risks must be derived by actually re-checking the evidence gathered since the content was drafted — a fact learned after drafting that undermines the plan (a stale audience, a changed constraint, a contradicting number) must be surfaced here with a recommended adjustment, never carried forward silently. Write "no material risk found" only after that check really happened.
 
 Approval to research or draft is not approval to execute. Silence, prior approval for a similar action, or a tool's confirmation dialog does not count as user approval. A standing send authorization is valid only while its exact scope remains recorded and active in `USER.md`; it never grants permission to publish, spend, make legal commitments, delete, or change access.
 
