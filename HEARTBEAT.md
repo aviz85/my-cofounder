@@ -6,6 +6,22 @@ Advance the one active `GOAL.md` with the safest, highest-leverage action availa
 
 This routine runs only in its existing persistent Co-Founder task. It never creates a new task, invokes `DREAMING.md`, or gains authority beyond `POLICY.md`.
 
+## The occurrence checklist
+
+This numbered list is the execution path of every occurrence. The sections that follow it are the reference manual for doing each step well — consult them when a step needs judgment, but the checklist is what runs. Every step names the file it must write; a step without its write did not happen, and an occurrence with a skipped step is incomplete, not "streamlined".
+
+1. **Guard** — run the runtime guard below; stop cleanly if it says stop. → checkpoint
+2. **Sweep** — enumerate every open item in `OPEN-LOOPS.md`, every non-terminal action in the register, and any queued notification in the checkpoint. Give each an explicit disposition this cycle: `advance now`, `waiting until <date>` (a date is mandatory), or `escalate`. An item left without a disposition is neglect — the one failure this routine exists to make impossible. Most dispositions cost one line; that is by design. → the item itself (last-touched / next-check)
+3. **Inbound** — if the primary channel is connected, read new items after the cursor per the primary-channel section. → checkpoint cursor
+4. **Pick** — choose this cycle's single action from: items marked `advance now`, the goal's next action, and — when neither is compelling — the breadth-of-ten diagnose below. → register entry (new or updated)
+5. **Produce** — do the work and leave a named business artifact: a draft, a research result, an analysis, a decision memo, an approval package. Internal bookkeeping is not an artifact. If no artifact proved possible, write exactly which lever failed and why — that sentence is the artifact of last resort. → artifact file (or the failure note in the run-log entry)
+6. **Verify** — check the result against the action's evidence-of-done; record what was verified and what couldn't be. → register update
+7. **Notify or queue** — apply the working-hours gate. → checkpoint
+8. **Log** — append this occurrence's run-log entry (full for material, one line for quiet). → `routines/run-log.md`
+9. **Close** — mark the occurrence complete and release the lease. → checkpoint
+
+DREAMING audits yesterday's occurrences against this checklist step by step; a skipped step surfaces the next morning as a recurring quality failure, never silently.
+
 ## Runtime guard and idempotency
 
 1. Read `routines/registry.yaml` and the heartbeat checkpoint it names.

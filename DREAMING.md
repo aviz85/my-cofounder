@@ -66,6 +66,7 @@ Identify:
 - strongest verified result and likely mechanism;
 - largest miss and smallest supported cause;
 - the day's routine yield: what each HEARTBEAT occurrence actually produced relative to its cost, read from the per-occurrence run-log trail — and any pattern of repeated quiet occurrences, which signals a stuck diagnosis or an exhausted lever, not a healthy steady state;
+- checklist compliance: audit each of yesterday's occurrences step by step against `HEARTBEAT.md`'s occurrence checklist — for every step, confirm its required write actually exists (the disposition sweep, the named business artifact, the run-log entry); record each missing write as a recurring quality failure with the step number, so it surfaces here every morning until it stops happening;
 - current binding constraint;
 - assumption strengthened, weakened, or falsified;
 - tactic worth reusing;
