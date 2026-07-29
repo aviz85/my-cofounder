@@ -124,7 +124,7 @@ Follow `teams/registry.md`. Use the smallest justified team, system-wide concurr
 - record failed attempts and next eligible retry;
 - update canonical memory only with provenance-backed durable learning.
 
-Append a material run entry to the current monthly routine log only when something changed: evidence, action status, metric, decision, approval state, blocker, question, or retry state. Consolidate repeated no-ops; the checkpoint is sufficient for ordinary no-change occurrences.
+Append a run entry to the current monthly routine log for every occurrence — no occurrence completes unlogged. A material occurrence (changed evidence, action status, metric, decision, approval state, blocker, question, or retry state) gets a full entry. A quiet occurrence gets one compact line: occurrence key, outcome, and why no material action was warranted. This per-occurrence trail is what lets DREAMING evaluate what each cycle actually produced; volume is controlled by the bounded-log compaction rules in `routines/README.md`, never by skipping the write.
 
 When the configured weekly maintenance is due, let `DREAMING.md` perform compaction; HEARTBEAT must not scan or rewrite old logs.
 
@@ -137,4 +137,4 @@ Before releasing the lease:
 3. mark the occurrence completed;
 4. report the goal gap, action or approval-ready artifact, verified result, blocker or one question, and next likely action.
 
-If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour. An awaiting_approval action is not "already in flight" once its re-ask cooldown (Startup) has elapsed with no user reply — that condition alone makes the occurrence material and requires a fresh approval-request notification (subject to the working-hours gate) before completing quietly.
+If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint and the one-line run-log entry required by §5. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour. An awaiting_approval action is not "already in flight" once its re-ask cooldown (Startup) has elapsed with no user reply — that condition alone makes the occurrence material and requires a fresh approval-request notification (subject to the working-hours gate) before completing quietly.

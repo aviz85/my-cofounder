@@ -24,7 +24,7 @@ Follow the startup order in `AGENTS.md`, then read durable evidence for the conf
 
 - the canonical action register;
 - current goal scorecard and underlying sources;
-- bounded active routine view and material monthly log entries;
+- bounded active routine view and every run-log entry for the day — material and quiet alike;
 - second-brain index, operation log, relevant canonical pages, gaps, experiments, and decisions — including `second-brain/wiki/entities/` for people, organizations, and products worth cross-referencing;
 - completed outputs, approvals, commitments, failures, objections, and new sources;
 - the day's team-meeting minutes and privacy-safe channel evidence;
@@ -65,6 +65,7 @@ Identify:
 
 - strongest verified result and likely mechanism;
 - largest miss and smallest supported cause;
+- the day's routine yield: what each HEARTBEAT occurrence actually produced relative to its cost, read from the per-occurrence run-log trail — and any pattern of repeated quiet occurrences, which signals a stuck diagnosis or an exhausted lever, not a healthy steady state;
 - current binding constraint;
 - assumption strengthened, weakened, or falsified;
 - tactic worth reusing;
