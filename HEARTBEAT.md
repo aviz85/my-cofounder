@@ -1,157 +1,29 @@
 # Co-Founder HEARTBEAT (every 4 hours)
 
-## Purpose
+Advance the one active `GOAL.md` with the highest-leverage safe action available now. Real work every cycle — never fake activity to look busy, never idle because the path is hard. This routine runs only in its fixed Co-Founder task; it never creates tasks, never invokes `DREAMING.md`, never exceeds `POLICY.md`.
 
-Advance the one active `GOAL.md` with the safest, highest-leverage action available now. Produce verified movement, qualified demand, revenue, customer learning, or removal of the binding constraint. Never manufacture activity to fill a 4-hour run — but per `AGENTS.md`'s iron principles, never go idle either. Fake busywork and genuine idleness are both failures; exhaust the real levers (ask, research, use tools, delegate, retry differently) before concluding an occurrence has no material action.
+## The occurrence checklist — this IS the routine
 
-This routine runs only in its existing persistent Co-Founder task. It never creates a new task, invokes `DREAMING.md`, or gains authority beyond `POLICY.md`.
+Run the 9 steps in order. Every step names the file it must write; a step without its write did not happen, and an occurrence with a skipped step is incomplete.
 
-## The occurrence checklist
-
-This numbered list is the execution path of every occurrence. The sections that follow it are the reference manual for doing each step well — consult them when a step needs judgment, but the checklist is what runs. Every step names the file it must write; a step without its write did not happen, and an occurrence with a skipped step is incomplete, not "streamlined".
-
-1. **Guard** — run the runtime guard below; stop cleanly if it says stop. → checkpoint
-2. **Sweep** — enumerate every open item in `OPEN-LOOPS.md`, every non-terminal action in the register, and any queued notification in the checkpoint. Give each an explicit disposition this cycle: `advance now`, `waiting until <date>` (a date is mandatory), or `escalate`. An item left without a disposition is neglect — the one failure this routine exists to make impossible. Most dispositions cost one line; that is by design. → the item itself (last-touched / next-check)
-3. **Inbound** — if the primary channel is connected, read new items after the cursor per the primary-channel section. → checkpoint cursor
-4. **Pick** — choose this cycle's single action from: items marked `advance now`, the goal's next action, and — when neither is compelling — the breadth-of-ten diagnose below. → register entry (new or updated)
-5. **Produce** — do the work and leave a named business artifact: a draft, a research result, an analysis, a decision memo, an approval package. Internal bookkeeping is not an artifact. If no artifact proved possible, write exactly which lever failed and why — that sentence is the artifact of last resort. → artifact file (or the failure note in the run-log entry)
+1. **Guard** — read `routines/registry.yaml` and the heartbeat checkpoint. Stop cleanly if installation or the heartbeat schedule is not installed+enabled, if this occurrence (scheduler ID + scheduled timestamp) is already completed, or if another run's unexpired lease is present. Otherwise record your start. → checkpoint
+2. **Sweep** — enumerate every open item in `OPEN-LOOPS.md`, every non-terminal action in the register, and any queued notification in the checkpoint. Give each an explicit disposition: `advance now`, `waiting until <date>` (date mandatory), or `escalate`. An item left without a disposition is neglect — the one failure this routine exists to make impossible. Most dispositions cost one line. → the item itself
+3. **Inbound** — if the primary channel is connected, read only items after the stored cursor; advance the cursor only after the evidence is durably persisted. → checkpoint cursor
+4. **Pick** — choose this cycle's single action from: items marked `advance now`, the goal's next action, and — when neither compels — a quick spread of fresh candidate directions across different `playbooks/index.md` shelves before settling. → register entry
+5. **Produce** — do the work and leave a named business artifact: a draft, a research result, an analysis, an approval package. Internal bookkeeping is not an artifact. If none proved possible, write exactly which lever failed and why — that sentence is the artifact of last resort. → artifact file
 6. **Verify** — check the result against the action's evidence-of-done; record what was verified and what couldn't be. → register update
-7. **Notify or queue** — apply the working-hours gate. → checkpoint
-8. **Log** — append this occurrence's run-log entry (full for material, one line for quiet). → `routines/run-log.md`
-9. **Close** — mark the occurrence complete and release the lease. → checkpoint
+7. **Notify or queue** — a proactive notification inside `USER.md`'s proactive window sends now; outside it, queue it in the checkpoint for the next in-window occurrence (send the newest version only, folding older queued ones in). This gate never delays the goal work itself. → checkpoint
+8. **Log** — append this occurrence's run-log entry: full for material, one line for quiet. → `routines/run-log.md`
+9. **Close** — mark the occurrence completed and release the lease. → checkpoint
 
-DREAMING audits yesterday's occurrences against this checklist step by step; a skipped step surfaces the next morning as a recurring quality failure, never silently.
+DREAMING audits yesterday's occurrences against this checklist step by step; a skipped step surfaces the next morning, never silently.
 
-## Runtime guard and idempotency
+## Binding rules
 
-1. Read `routines/registry.yaml` and the heartbeat checkpoint it names.
-2. Proceed only when installation, schedule, fixed task binding, and heartbeat are installed and enabled.
-3. Verify the current scheduler and task IDs when the product exposes them. If the installation capability probe did not confirm that verification is available, the schedule must remain disabled.
-4. Build a stable `occurrence_key` from the scheduler ID and scheduled service timestamp.
-5. If that occurrence is already completed, stop without another action or log entry.
-6. Respect `next_eligible_retry_at`. Acquire the checkpoint lease only when it is empty or expired; otherwise stop. Set a bounded lease expiry so a crash cannot lock the routine forever.
-7. On success, persist completion and release the lease. On failure, persist the exact stage, attempt count, bounded backoff, and next eligible retry before releasing or expiring the lease.
-
-The checkpoint is operational state, not business memory. Never store secrets, message bodies, or personal endpoints in it.
-
-## Startup
-
-Follow the canonical startup order in `AGENTS.md`. If `GOAL.md` is empty, ask the single goal-defining question selected by its onboarding contract and do only independent safe discovery.
-
-Do not repeat the same unanswered onboarding or connector question, or the same unanswered awaiting_approval request, every cycle. Compare its normalized question or approval-request hash with the checkpoint. Default cooldown is 24 hours unless:
-
-- the user interacted since the last question;
-- new evidence materially changes the question;
-- a deadline creates a documented urgent risk.
-
-Persist verified answers immediately and continue the work they unlock.
-
-## Durable current state
-
-Do not rely on the growing conversation as the action ledger. Read:
-
-- the canonical action register linked from `second-brain/wiki/index.md`;
-- the current goal scorecard and relevant evidence;
-- the bounded active routine view and recent material run entries;
-- only the relevant second-brain pages, playbook, team charter, or connector record.
-
-Reconcile stale, duplicate, blocked, or completed actions before creating another. An action needs a stable ID, action hash, owner, status, due date, evidence-of-done, attempt count, and next eligible retry.
-
-## Primary-channel check
-
-Authority is split deliberately:
-
-- `USER.md` owns the user's channel choice, provider preference, endpoint, consent, and structured standing-send authorization.
-- `connectors/registry.yaml` and the live connector own current availability and provider capability.
-- the heartbeat checkpoint owns the last successfully processed inbound cursor.
-
-If no channel is chosen, ask one channel question only when it is the highest-leverage open gap and the question cooldown permits it.
-
-If a channel is chosen but its provider is unavailable, request only the connection that unlocks the concrete read. Do not make a channel-dependent decision; continue independent work that cannot be invalidated by missing replies.
-
-When available:
-
-1. read only inbound items after the stored cursor;
-2. process each item at most once;
-3. record only a privacy-safe source locator, date, and summary in durable memory;
-4. update the cursor only after successful processing;
-5. revise the diagnosis when a reply changes a commitment, objection, result, constraint, or instruction.
-
-For an outbound message covered by structured standing authorization, compute an outbound hash from channel, audience, message type, normalized content, and action ID. Never resend a completed or pending hash. Otherwise prepare the exact message and request in-app approval under `POLICY.md`.
-
-A proactive outbound message is a short notification and invitation back into this session, never the substantive conversation itself. Do not draft a channel message that tries to walk the user through a diagnosis, present multiple options, or hold a decision-making dialogue — say what changed or what is needed, and invite the user to continue here. If the user replies on the channel with something urgent, read it as evidence and act on it, but the follow-through discussion still belongs in this session, not in a growing WhatsApp or email thread.
-
-## Working-hours gate on proactive sends
-
-This gate applies only to a proactive outbound notification on the primary channel — never to the goal action loop itself, and never to replying within a session the user is already in. Per `AGENTS.md`'s iron principles, real work happens every cycle regardless of time of day or day of week; only whether the user gets proactively pinged about it is time-gated.
-
-Before sending any proactive channel notification (not a reply to something the user just sent):
-
-1. Read `communication.proactive_window` in `USER.md`. If every field is null, apply the documented default (`communication_schema.proactive_window_default_rule`) rather than treating the gate as absent.
-2. Compute current local time from `profile.timezone` (or the connector's local time if timezone is unset).
-3. If current local time falls within the window's days and hours, send the notification now, as usual.
-4. If it falls outside the window, do not send. Queue the notification (persist it in the checkpoint with its content and reason) for the next occurrence whose time falls inside the window — do not drop it, and do not silently skip forward multiple cycles' worth of updates into one at the next window open; if several queued, send the single most current one and fold the rest into it rather than sending a backlog.
-5. This gate never delays or blocks the underlying goal action, the action register update, or metric persistence — only the proactive send itself waits.
-
-## Goal action loop
-
-### 1. Orient
-
-Extract or mark unknown:
-
-- outcome, baseline, target, current value, gap, and deadline;
-- lagging outcome, leading indicators, inputs, and guardrails;
-- evidence source and confidence;
-- open commitments and current constraint.
-
-Never silently replace or broaden the goal.
-
-### 2. Diagnose
-
-Use targeted read-only discovery first. Name the one constraint or uncertainty that most limits progress. Before ranking, widen the field: deliberately generate a broad set of candidate directions — aim for around ten — spanning different `playbooks/index.md` shelves and different postures (quick win, high-risk/high-reward, constraint-removal, evidence-gathering), not just the first idea that comes to mind or the same action chosen last cycle. Draw on what's already tracked (the action register, the gap queue, DREAMING's proposals) as well as fresh angles — breadth here means not defaulting to the obvious path unchallenged, not reinventing everything from zero each time. Then rank candidate actions by expected impact, evidence strength, speed to feedback, effort, reversibility, learning value, permission cost, and guardrail risk.
-
-Before defaulting to the obvious next action, spend a moment on the same cross-connection hunt `DREAMING.md` runs nightly: does anything in `second-brain/wiki/entities/`, the calendar, or another lead/customer thread line up with what's happening right now in a way the user hasn't connected themselves? A well-timed surfaced connection is worth more than another routine follow-up — but only surface one that's genuinely evidence-backed, not a forced coincidence.
-
-Load one primary playbook from `playbooks/index.md`; add one dependency only when genuinely required.
-
-### 3. Act
-
-Execute one best safe action. Prefer:
-
-1. verified outcome movement;
-2. qualified demand, revenue, or customer evidence;
-3. a test of the highest-value uncertainty;
-4. removal of the binding constraint;
-5. an exact approval-ready external action.
-
-Before execution, compute the action hash and reconcile it with the action register and checkpoint. Do not repeat an action that is done, pending, awaiting approval, inside backoff, or already owned elsewhere.
-
-Use tools and connectors only when they materially advance the goal. Verify the real result, not merely a success response.
-
-### 4. Delegate sparingly
-
-Follow `teams/registry.md`. Use the smallest justified team, system-wide concurrency cap, active-team cap, agenda-based worker activation, and stop rules. The Co-Founder remains responsible for synthesis, evidence, privacy, and quality.
-
-### 5. Measure and persist
-
-- update metrics only from their defined evidence sources;
-- preserve history and comparability notes;
-- update the action register before reporting completion;
-- record failed attempts and next eligible retry;
-- update canonical memory only with provenance-backed durable learning.
-
-Append a run entry to the current monthly routine log for every occurrence — no occurrence completes unlogged. A material occurrence (changed evidence, action status, metric, decision, approval state, blocker, question, or retry state) gets a full entry. A quiet occurrence gets one compact line: occurrence key, outcome, and why no material action was warranted. This per-occurrence trail is what lets DREAMING evaluate what each cycle actually produced; volume is controlled by the bounded-log compaction rules in `routines/README.md`, never by skipping the write.
-
-When the configured weekly maintenance is due, let `DREAMING.md` perform compaction; HEARTBEAT must not scan or rewrite old logs.
-
-## Completion
-
-Before releasing the lease:
-
-1. verify output and evidence;
-2. persist action, cursor, message hash, question hash, retry, and metric state as applicable;
-3. append this occurrence's run-log entry to `routines/run-log.md` (§5 — full for material, one line for quiet); the occurrence is not complete without it;
-4. mark the occurrence completed;
-5. report the goal gap, action or approval-ready artifact, verified result, blocker or one question, and next likely action.
-
-If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint and the one-line run-log entry required by §5. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour. An awaiting_approval action is not "already in flight" once its re-ask cooldown (Startup) has elapsed with no user reply — that condition alone makes the occurrence material and requires a fresh approval-request notification (subject to the working-hours gate) before completing quietly.
+- Follow `AGENTS.md`'s canonical startup first (SOUL, USER, BUSINESS, GOAL, POLICY, OPEN-LOOPS). If `GOAL.md` is empty: ask the one onboarding question its contract selects, do only safe independent discovery.
+- Never repeat an unanswered question or approval request within its 24h cooldown (compare with the checkpoint) — unless the user interacted since, new evidence materially changes it, or a deadline creates documented urgent risk. An awaiting_approval action whose cooldown has elapsed with no reply is not "in flight": re-surface it.
+- External sends and approvals follow `POLICY.md` exactly, including its evidence-derived risk line. Never resend content already sent for the same action.
+- A business fact the user stated gets filed to its canonical home in the same turn it was learned.
+- Never silently replace or broaden the goal. Never invent evidence, access, authorization, or results. A successful tool call is not proof of a business outcome — verify the real result.
+- Delegate only per `teams/registry.md`; the Co-Founder stays responsible for synthesis and quality.
+- The checkpoint is operational state, not business memory: no secrets, no message bodies, no personal endpoints.
