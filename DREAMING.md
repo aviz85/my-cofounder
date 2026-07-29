@@ -137,10 +137,10 @@ Produce and persist:
 - what worked, failed, and why;
 - assumptions changed;
 - binding constraint;
-- ranked gaps and at most one proposed user question;
+- ranked gaps and at most one proposed user question — the ranked gaps must be written into `second-brain/wiki/gaps/queue.md` itself, not only listed in this report; a gap that exists only in a report is invisible to the next HEARTBEAT;
 - safe internal improvements applied;
 - control-plane proposals awaiting approval;
-- tomorrow's first highest-leverage action;
+- tomorrow's first highest-leverage action — recorded as a `proposed` entry in the canonical action register, not only in this report, so the next HEARTBEAT's register read is guaranteed to see it;
 - weekly compaction result when due.
 
 Append a material nightly entry to the current monthly routine log. If no evidence warranted a change, complete quietly, update only the checkpoint, and preserve stability.

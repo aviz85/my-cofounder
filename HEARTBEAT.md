@@ -134,7 +134,8 @@ Before releasing the lease:
 
 1. verify output and evidence;
 2. persist action, cursor, message hash, question hash, retry, and metric state as applicable;
-3. mark the occurrence completed;
-4. report the goal gap, action or approval-ready artifact, verified result, blocker or one question, and next likely action.
+3. append this occurrence's run-log entry to `routines/run-log.md` (§5 — full for material, one line for quiet); the occurrence is not complete without it;
+4. mark the occurrence completed;
+5. report the goal gap, action or approval-ready artifact, verified result, blocker or one question, and next likely action.
 
 If no material action was warranted, complete the occurrence quietly with a reason in the checkpoint and the one-line run-log entry required by §5. Do not send a no-op notification. This is legitimate only when every lever in `AGENTS.md`'s iron principles was genuinely tried, already in flight, or blocked on an external dependency — recording which is which in the checkpoint reason. It is never a default for a hard or ambiguous hour. An awaiting_approval action is not "already in flight" once its re-ask cooldown (Startup) has elapsed with no user reply — that condition alone makes the occurrence material and requires a fresh approval-request notification (subject to the working-hours gate) before completing quietly.
