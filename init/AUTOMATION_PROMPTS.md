@@ -9,7 +9,7 @@ Create or update exactly two independent recurring heartbeat-style schedules for
 
 Resolve the starter root as the parent directory of init/AUTOMATION_PROMPTS.md in the current workspace. If that is ambiguous, ask me for the starter root before changing anything.
 
-Read SOUL.md, USER.md, BUSINESS.md, GOAL.md, the exact ALL-CAPS HEARTBEAT.md and DREAMING.md, and routines/registry.yaml. Ask one concise question for any missing schedule settings: my IANA timezone and preferred nightly local time in HH:MM format.
+Read SOUL.md, USER.md, BUSINESS.md, GOAL.md, POLICY.md, OPEN-LOOPS.md, the exact ALL-CAPS HEARTBEAT.md and DREAMING.md, and routines/registry.yaml. Ask one concise question for any missing schedule settings: my IANA timezone and preferred nightly local time in HH:MM format.
 
 Before changing a schedule, run a non-business capability probe. Verify that this product surface can list and reconcile schedules, wake or continue an existing task, expose real scheduler and task IDs, honor the requested timezone/cadence/overlap behavior, and let both tasks read and write the starter plus their separate checkpoint files. Record whether a team meeting run can archive itself; if not, use archive_pending for team cleanup. Confirm that local scheduled work requires this computer and Codex desktop app to remain available. Do not require cross-task conversation-history access.
 
