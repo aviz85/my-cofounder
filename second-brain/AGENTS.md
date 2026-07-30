@@ -59,6 +59,20 @@ The repository's [heartbeat](../HEARTBEAT.md) revisits open gaps, asks at most o
 - Meeting and source records may store only channel type, a safe stable message or thread locator, response summary, and date. They must never store a personal endpoint.
 - Treat user corrections as new evidence and preserve the reason for the change.
 
+## Write-for-retrieval
+
+Every write is designed for its future reader, or it did not happen. A document that piles up with no known access path is not memory — it is burial. Therefore:
+
+1. **A write is complete only when its retrieval route exists.** Before closing any turn that created or materially updated a derived page, name at least one live route to it:
+   - **index route** — the page is reachable from `wiki/index.md` directly or through one shelf index (the general-research path);
+   - **consumer route** — a named reader is contractually pointed at it: a routine step (HEARTBEAT sweep, DREAMING evidence window), a register action's `source_refs`, a gaps-queue item's answer path, a team charter scope, or a skill/worker whose brief names this location;
+   - **date route** — a scheduled surfacing moment references it: an `OPEN-LOOPS.md` next-check, an action's `due`/retry date, or a scheduled task.
+   A page with none of the three is an **orphan**. Creating an orphan violates this contract; lint flags orphans, and DREAMING's nightly audit reports any page created that day without a route.
+
+2. **New content type ⇒ immediate retrieval drill.** When creating a kind of content that did not exist before — a new shelf/folder, a new record type, the first page of a new category — the write is not done until a retrieval drill passes in the same session: state the future moment this content should surface at ("when X happens, the reader will need Y"), then verify Y is actually findable starting ONLY from the canonical entry points (index, registers, OPEN-LOOPS, gap queue) — not from your memory of having just written it. If the drill fails, fix the route (index link, consumer, or date) before considering the write complete, and record the drill result in the operation log entry.
+
+3. **Prefer routes that fire themselves.** A consumer or date route beats a bare index link: an index entry waits to be searched, while a named reader or a dated surfacing moment guarantees arrival. When the content exists to serve a specific future decision, wire it to the thing that will make that decision.
+
 ## Goal rules
 
 - Support exactly one active primary strategic goal.

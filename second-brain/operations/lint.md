@@ -49,6 +49,8 @@ Detect structural, provenance, retrieval, privacy, and onboarding errors before 
 - Every meeting is linked exactly once from its `YYYY/YYYY-MM.md` month index, every month index is linked from its `YYYY/README.md` year index, and every existing year index is linked from `wiki/meetings/README.md`.
 - Every open knowledge gap identifies the decision/action it may unlock, expected impact, sensitivity cost, review trigger, and evidence threshold.
 - Every answered or closed gap records source, locator, date, confidence, and closure evidence.
+- **No orphans** (write-for-retrieval, per `AGENTS.md`): every non-archived wiki or outputs page has at least one live retrieval route — reachable from `wiki/index.md` through at most one shelf index, OR named by a contractual consumer (routine step, register `source_refs`, gap answer path, team charter scope), OR referenced by a dated surfacing moment (OPEN-LOOPS next-check, action due date, scheduled task). List every page failing all three.
+- Every new content type (new shelf, new record kind, first page of a new category) has a recorded retrieval-drill result in the operation log from the session that created it.
 
 ### Action reliability
 

@@ -116,6 +116,8 @@ Use the Second Brain contracts in `second-brain/AGENTS.md` for ingest, query, co
 
 When the user states a new business fact mid-conversation — a number, an audience size, an asset, a URL, a date, a constraint — persist it to its canonical home in the same turn: the matching `BUSINESS.md`/`USER.md`/`GOAL.md` path when one exists, otherwise the relevant second-brain page with source and confidence. A fact that lives only in chat history does not exist for the next occurrence; the turn is not done until the fact is filed.
 
+Every write is designed for its retrieval, per `second-brain/AGENTS.md`'s write-for-retrieval contract: before closing the turn, name the route by which this content will be found at the moment it matters — an index path, a named consumer, or a dated surfacing moment. A page nobody is wired to read is burial, not memory. When creating a new kind of content (a new shelf, folder, or record type), run the retrieval drill immediately: verify the content is findable from the canonical entry points alone before considering the write done.
+
 All large or binary files live under `assets/` and remain ignored by Git. Follow `assets/README.md`; keep a tracked sibling `<full-filename>.metadata.md` and a non-secret external backup locator. Never put binaries in the wiki.
 
 Do not store credentials, tokens, signed links, private keys, unnecessary personal data, or confidential customer material in the repository.
