@@ -1,6 +1,11 @@
 # Routine Runtime Files
 
-This directory supports two independent base schedules:
+Runnable Node routines (in addition to the two base schedules):
+
+- `daily-review.md` + `scripts/daily-review.mjs` — write today's project brief
+- `whatsapp-attention.md` + `scripts/whatsapp-attention.mjs` — scan last-day WhatsApp for attention items
+
+This directory also supports two independent base schedules:
 
 - a task every 4 hours whose sole instruction file is `HEARTBEAT.md`;
 - a nightly task whose sole instruction file is `DREAMING.md`.

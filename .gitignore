@@ -1,3 +1,10 @@
+# local API keys for WhatsApp / ElevenLabs
+.env
+*.mp3
+voice.mp3
+# live WhatsApp scans can contain other people's messages
+second-brain/outputs/*-whatsapp-attention.md
+
 # Root control docs use exact ALL-CAPS names: SOUL.md, USER.md, BUSINESS.md,
 # GOAL.md, HEARTBEAT.md, and DREAMING.md. They stay tracked outside assets/.
 
