@@ -33,6 +33,14 @@ Start here. Open only the pages needed for the current goal or question.
 - [Knowledge gaps](gaps/README.md)
 - [Archive](archive/README.md)
 
+## Lesson demo
+
+Derived only. Not a business fact shelf.
+
+- [סקירת בוקר](../outputs/2026-08-17-morning-brief.md)
+- [מה קורה בקבוצה](../outputs/2026-08-17-group-digest.md)
+- [תסריט הקלטה](../outputs/2026-08-17-voice-script.md)
+
 ## Maintenance
 
 - [Operation log](log.md)

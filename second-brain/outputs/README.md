@@ -11,4 +11,9 @@ This directory stores text-only derived artifacts such as research briefs, decis
 
 Use the [query operation](../operations/query.md) for durable results.
 
-No outputs have been created.
+Lesson demo (2026-08-17), labeled `status: demo`, not business source truth:
+
+- [סקירת בוקר](2026-08-17-morning-brief.md)
+- [מה קורה בקבוצה](2026-08-17-group-digest.md)
+- [תסריט הקלטה](2026-08-17-voice-script.md)
+

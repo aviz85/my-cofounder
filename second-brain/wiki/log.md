@@ -21,6 +21,17 @@ Use this structure:
 - notes:
 ```
 
+## 2026-08-17T19:20:00+03:00 — lesson_demo_outputs
+
+- actor: Grok — lesson pack
+- scope: `second-brain/outputs` demo files for the WhatsApp + ElevenLabs class
+- inputs: teaching request for group-read, voice note, morning brief
+- writes: `outputs/2026-08-17-morning-brief.md`; `outputs/2026-08-17-group-digest.md`; `outputs/2026-08-17-voice-script.md`; outputs README; wiki index
+- evidence: files labeled `status: demo`; not copied into GOAL/BUSINESS
+- result: reviewable lesson artifacts in the cofounder project
+- lint_status: not run
+- notes: replace the group digest with a live `wa.mjs read --group` during class
+
 ## 2026-07-28T18:22:55+03:00 — schema_change
 
 - actor: Codex — Implementation Agent
